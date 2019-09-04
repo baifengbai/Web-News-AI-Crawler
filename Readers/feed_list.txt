@@ -1,0 +1,9 @@
+http://techcrunch.com/feed/
+http://feeds.dzone.com/devops
+http://feeds.dzone.com/iot
+http://feeds.dzone.com/microservices
+http://feeds.dzone.com/ai
+http://feeds.dzone.com/cloud
+http://feeds.feedburner.com/entrepreneur/latest
+https://hackernoon.com/feed
+https://www.wired.com/feed/rss
