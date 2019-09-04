@@ -3,7 +3,6 @@
 import feedparser
 import time
 from subprocess import check_output
-import json
 import pymongo
 import sys
 
@@ -77,7 +76,8 @@ for post in feed.entries:
 # output all of the new posts
 #
 
-def write_mongo(json):
+def write_mongo(json): #see https://www.thepolyglotdeveloper.com/2019/01/getting-started-mongodb-docker-container-deployment/
+    #use: docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
     mydb = myclient["mydatabase"]
 
@@ -85,12 +85,6 @@ def write_mongo(json):
 
     x = mycol.insert_one(json)
 
-def write_json(dict):
-    json_string = json.dumps(dict)
-    #print(json_string)
-    #print("\n")
-    return json_string
-   
 count = 1
 blockcount = 1
 print("Looking for feed..")
