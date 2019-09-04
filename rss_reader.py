@@ -5,13 +5,13 @@ import time
 from subprocess import check_output
 import sys
 
-#feed_name = 'TRIBUNE'
-#url = 'http://chicagotribune.feedsportal.com/c/34253/f/622872/index.rss'
+feed_name = 'TechCrunch'
+url = 'http://techcrunch.com/feed/'
 
-feed_name = sys.argv[1]
-url = sys.argv[2]
+#feed_name = sys.argv[1]
+#url = sys.argv[2]
 
-db = '/var/www/radio/data/feeds.db'
+#db = '/var/www/radio/data/feeds.db'
 limit = 12 * 3600 * 1000
 
 #
@@ -53,28 +53,30 @@ for post in feed.entries:
     # if post is already in the database, skip it
     # TODO check the time
     title = post.title
-    if post_is_in_db_with_old_timestamp(title):
-        posts_to_skip.append(title)
-    else:
-        posts_to_print.append(title)
-    
+    #if post_is_in_db_with_old_timestamp(title):
+        #posts_to_skip.append(title)
+    #else:
+        #posts_to_print.append(title)
+    posts_to_print.append(title)
 #
 # add all the posts we're going to print to the database with the current timestamp
 # (but only if they're not already in there)
 #
-f = open(db, 'a')
-for title in posts_to_print:
-    if not post_is_in_db(title):
-        f.write(title + "|" + str(current_timestamp) + "\n")
-f.close
+#f = open(db, 'a')
+#for title in posts_to_print:
+##    if not post_is_in_db(title):
+#        f.write(title + "|" + str(current_timestamp) + "\n")
+#f.close
     
 #
 # output all of the new posts
 #
 count = 1
 blockcount = 1
+print("Looking for feed..")
 for title in posts_to_print:
     if count % 5 == 1:
+        print("Reading feed..")
         print("\n" + time.strftime("%a, %b %d %I:%M %p") + '  ((( ' + feed_name + ' - ' + str(blockcount) + ' )))')
         print("-----------------------------------------\n")
         blockcount += 1
