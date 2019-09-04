@@ -89,6 +89,7 @@ def write_json(dict):
     json_string = json.dumps(dict)
     #print(json_string)
     #print("\n")
+    return json_string
    
 count = 1
 blockcount = 1
@@ -108,5 +109,6 @@ for title in posts_to_print:
     dict['Published'] = published
     dict['Content'] = content
     dict['Favorite'] = False
-    write_json(dict)
+    write_mongo(write_json(dict))
+
     count += 1
