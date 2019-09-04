@@ -4,7 +4,7 @@ import feedparser
 import time
 from subprocess import check_output
 import json
-#import pymongo
+import pymongo
 import sys
 
 feed_name = 'TechCrunch'
@@ -77,7 +77,13 @@ for post in feed.entries:
 # output all of the new posts
 #
 
-#def write_mongo(json):
+def write_mongo(json):
+    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    mydb = myclient["mydatabase"]
+
+    mycol = mydb["db_name"]
+
+    x = mycol.insert_one(json)
 
 def write_json(dict):
     json_string = json.dumps(dict)
