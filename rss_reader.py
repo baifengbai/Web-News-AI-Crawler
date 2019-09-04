@@ -3,6 +3,8 @@
 import feedparser
 import time
 from subprocess import check_output
+import json
+#import pymongo
 import sys
 
 feed_name = 'TechCrunch'
@@ -53,6 +55,9 @@ for post in feed.entries:
     # if post is already in the database, skip it
     # TODO check the time
     title = post.title
+    link = post.link
+    content = post.content
+    published = post.published
     #if post_is_in_db_with_old_timestamp(title):
         #posts_to_skip.append(title)
     #else:
@@ -71,6 +76,14 @@ for post in feed.entries:
 #
 # output all of the new posts
 #
+
+#def write_mongo(json):
+
+def write_json(dict):
+    json_string = json.dumps(dict)
+    #print(json_string)
+    #print("\n")
+   
 count = 1
 blockcount = 1
 print("Looking for feed..")
@@ -80,5 +93,14 @@ for title in posts_to_print:
         print("\n" + time.strftime("%a, %b %d %I:%M %p") + '  ((( ' + feed_name + ' - ' + str(blockcount) + ' )))')
         print("-----------------------------------------\n")
         blockcount += 1
-    print(title + "\n")
+    print(published + " | " + title + " | " + link)
+    print(str(content) + "\n")
+    dict = {}
+    dict['Feed_Name'] = feed_name
+    dict['Title'] = title
+    dict['Link'] = link
+    dict['Published'] = published
+    dict['Content'] = content
+    dict['Favorite'] = False
+    write_json(dict)
     count += 1
