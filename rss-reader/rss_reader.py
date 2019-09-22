@@ -78,7 +78,7 @@ for post in feed.entries:
 
 def write_mongo(json): #see https://www.thepolyglotdeveloper.com/2019/01/getting-started-mongodb-docker-container-deployment/
     #use: docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    myclient = pymongo.MongoClient("mongodb://riohomecloud.ddns.net:27017/")
     mydb = myclient["mydatabase"]
 
     mycol = mydb["db_name"]
@@ -103,6 +103,6 @@ for title in posts_to_print:
     dict['Published'] = published
     dict['Content'] = content
     dict['Favorite'] = False
-    write_mongo(write_json(dict))
+    #write_mongo(write_json(dict))
 
     count += 1
