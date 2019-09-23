@@ -27,6 +27,8 @@ for url in lines:
     try: 
         feed = feedparser.parse(url)
         feed_name=feed['feed']['title']
+        print("Reading feed: ", feed_name)
+        print('\n')
         for post in feed.entries: 
             #write to mongoDB
             for post in feed.entries:
