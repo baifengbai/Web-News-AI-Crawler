@@ -33,6 +33,6 @@ for url in lines:
             #write to mongoDB
             for post in feed.entries:
                 write_mongo(post)
-    except(Exception e):
+    except:
         print("Error while reading feed", feed_name)
 
