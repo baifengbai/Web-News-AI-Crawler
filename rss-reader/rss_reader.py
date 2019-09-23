@@ -20,11 +20,17 @@ def write_mongo(post): #see https://www.thepolyglotdeveloper.com/2019/01/getting
     db = client.rss_news
     db[feed_name].insert_one(post)
 
-for post in feed.entries: #check feed list file
-    
-    feed = feedparser.parse(url)
-    feed_name=feed['feed']['title']
-    #write
-    for post in feed.entries:
-        write_mongo(post)
+# Open the rss file with read only permit and read line by line
+f = open('feed_list.txt', "r")
+lines = f.readlines()
+for url in lines:
+    try: 
+        feed = feedparser.parse(url)
+        feed_name=feed['feed']['title']
+        for post in feed.entries: 
+            #write to mongoDB
+            for post in feed.entries:
+                write_mongo(post)
+    except(Exception e):
+        print("Error while reading feed", feed_name)
 
