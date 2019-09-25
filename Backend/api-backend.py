@@ -15,13 +15,13 @@ app = flask.Flask(__name__)
 # to use it when loading the model 
 def auc(y_true, y_pred):
     auc = tf.metrics.auc(y_true, y_pred)[1]
-   keras.backend.get_session().run(tf.local_variables_initializer())
+    keras.backend.get_session().run(tf.local_variables_initializer())
     return auc
 
 # load the model, and pass in the custom metric function
 global graph
 graph = tf.get_default_graph()
-model = load_model('games.h5', custom_objects={'auc': auc}) #load .h5 Keras model after it has been saved
+model = load_model('./AI_Model/rss_model.h5', custom_objects={'auc': auc}) #load .h5 Keras model after it has been saved
 
 # define a predict function as an endpoint 
 @app.route("/predict", methods=["GET","POST"])
