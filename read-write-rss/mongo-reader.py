@@ -38,19 +38,19 @@ for url in lines:
     mydocs = db[feed_name].find()
     if re.match(r'^TechCrunch ', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[0]['content'][0]['value'])
+            contents.append(mydocs[i]['content'][0]['value'])
     if re.match(r'^DZone ', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[0]['summary'])
+            contents.append(mydocs[i]['summary'])
     if re.match(r'^Entrepreneur ', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[0]['summary'])
+            contents.append(mydocs[i]['summary'])
     if re.match(r'^Hacker Noon', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[0]['summary'])
+            contents.append(mydocs[i]['summary'])
     if re.match(r'^Wired', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[0]['summary'])
+            contents.append(mydocs[i]['summary'])
 
 #TODO send contents to API
 #TODO add more feeds to parse
