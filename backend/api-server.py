@@ -1,32 +1,48 @@
-# Load libraries
-
-#ee: https://towardsdatascience.com/deploying-keras-deep-learning-models-with-flask-5da4181436a2
-
+# import the necessary packages
+import numpy as np
 import flask
+import io
 import pandas as pd
 import tensorflow as tf
 import keras
 from keras.models import load_model
 
+# initialize our Flask application and the Keras model
+app = flask.Flask(__name__)
+model = None
+
+def filter_data(string):
+    '''
+    Removes usless characters
+    '''
+    filtered = string.replace('<p class="p1"><span class="s1">',' ')
+    filtered = filtered.replace('<p ',' ')
+    filtered = filtered.replace('<dev>',' ')
+    return filtered
+
+def preprocess_data(stored_contents):
+    from keras.preprocessing.text import text_to_word_sequence, one_hot
+    from keras.preprocessing.sequence import pad_sequences
+
+    #see: https://machinelearningmastery.com/prepare-text-data-deep-learning-keras/
+    
+    # tokenize the document
+    word_sequence=text_to_word_sequence(filter_data(stored_contents))
+    words = set(word_sequence) #set() "groups by" the characters filtering duplicaded ones
+    vocab_size=len(words) #getting vocabulary size, this will be the input 
+    tokenized_array=one_hot(stored_contents, round(vocab_size)) #one hot encoding input data
+
+    #data_to_predict = pad_sequences(tokenized_array, maxlen = 9000)
+    #return data_to_predict
+    return tokenized_array
+
 # instantiate flask 
 app = flask.Flask(__name__)
-
-# we need to redefine our metric function in order 
-# to use it when loading the model 
-def auc(y_true, y_pred):
-    auc = tf.metrics.auc(y_true, y_pred)[1]
-    keras.backend.get_session().run(tf.local_variables_initializer())
-    return auc
-
-# load the model, and pass in the custom metric function
-global graph
-graph = tf.get_default_graph()
-model = load_model('./AI_Model/rss_model.h5', custom_objects={'auc': auc}) #load .h5 Keras model after it has been saved
 
 # define a predict function as an endpoint 
 @app.route("/predict", methods=["GET","POST"])
 def predict():
-    data = {"success": False}
+    data = {"success": False, "predictions": []}
 
     params = flask.request.json
     if (params == None):
@@ -34,9 +50,21 @@ def predict():
 
     # if parameters are found, return a prediction
     if (params != None):
-        x=pd.DataFrame.from_dict(params, orient='index').transpose()
-        with graph.as_default():
-            data["prediction"] = str(model.predict(x)[0][0]) #change this according to model!
+            
+            # preprocess the image and prepare it for classification
+            data_to_predict=preprocess_data(params['input'])
+            # classify the input image and then initialize the list
+            # of predictions to return to the client
+            model=load_model('rss_model.h5')
+            results = model.predict(data_to_predict)
+            data["predictions"] = []
+
+            # loop over the results and add them to the list of
+            # returned predictions
+            for prob in results:
+                r = float(prob)
+                data["predictions"].append(r)
+            # indicate that the request was a success
             data["success"] = True
 
     # return a response in json format 
