@@ -51,16 +51,11 @@ def predict():
     # if parameters are found, return a prediction
     if (params != None):
             
-            # preprocess the image and prepare it for classification
             data_to_predict=preprocess_data(params['input'])
-            # classify the input image and then initialize the list
-            # of predictions to return to the client
-            model=load_model('rss_model.h5')
+            model=load_model('rss_model.h5') #requieres keras 2.2.4!!!
             results = model.predict(data_to_predict)
             data["predictions"] = []
 
-            # loop over the results and add them to the list of
-            # returned predictions
             for prob in results:
                 r = float(prob)
                 data["predictions"].append(r)
