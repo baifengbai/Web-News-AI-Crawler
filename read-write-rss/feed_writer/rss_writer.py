@@ -12,11 +12,11 @@ limit = 12 * 3600 * 1000
 #
 current_time_millis = lambda: int(round(time.time() * 1000))
 current_timestamp = current_time_millis()
+client = pymongo.MongoClient("mongodb://rio:onslario89@riohomecloud.ddns.net:27017")
 
 
-def write_mongo(post): #see https://www.thepolyglotdeveloper.com/2019/01/getting-started-mongodb-docker-container-deployment/
+def write_mongo(post, client): #see https://www.thepolyglotdeveloper.com/2019/01/getting-started-mongodb-docker-container-deployment/
     #use: docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4
-    client = pymongo.MongoClient("mongodb://rio:onslario89@riohomecloud.ddns.net:27017")
     db = client.rss_news
     db[feed_name].insert_one(post)
 
@@ -28,11 +28,9 @@ for url in lines:
         feed = feedparser.parse(url)
         feed_name=feed['feed']['title']
         print("Reading feed: ", feed_name)
-        print('\n')
-        for post in feed.entries: 
-            #write to mongoDB
-            for post in feed.entries:
-                write_mongo(post)
+        print('\n') 
+        for post in feed.entries:
+            write_mongo(post, client)
     except Exception as e:
         print("Error while reading feed", feed_name)
         print("Ecxception: ", e)

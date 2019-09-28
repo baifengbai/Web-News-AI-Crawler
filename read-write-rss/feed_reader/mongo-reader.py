@@ -12,8 +12,7 @@ from datetime import date
 
 def send_data_to_ai(documents):
      for content in documents:
-          #TODO: extract content from each document 
-          r = requests.post('http://riohomecloud.ddns.net:5000/predict?msg={}'.format(content)) #TODO: open port 5000 on server
+          r = requests.post('http://riohomecloud.ddns.net:5000/predict?msg={}'.format(content)) 
           return r
 
 def get_ducuments(url):
