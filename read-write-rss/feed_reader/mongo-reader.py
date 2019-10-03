@@ -49,7 +49,7 @@ for url in lines:
     mydocs = db[feed_name].find({'date': {'$lt': end, '$gt': start}})
     if re.match(r'^TechCrunch', feed_name):
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[i]['content'][0]['link'])
+            contents.append(mydocs[i]['link'])
     if re.match(r'^DZone ', feed_name):
         for i in range(0, mydocs.count()):
             contents.append(mydocs[i]['link']) #TODO: test link saving
