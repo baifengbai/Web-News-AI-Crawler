@@ -52,7 +52,7 @@ def predict():
     if (params != None):
             
             data_to_predict=preprocess_data(params['input'])
-            model=load_model('rss_model.h5') #requieres keras 2.2.4!!!
+            model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
             results = model.predict(data_to_predict)
             data["predictions"] = []
 
