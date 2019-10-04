@@ -1,2 +1,2 @@
-#Read rss entries from given urls
-0 9 * * * /home/pi/Codice/Web-News-AI-Crawler/read-write-rss/feed_writer/rss_writer.py >> /home/pi/Codice/Web-News-AI-Crawler/read-write-rss/feed_writer/rss_writer.log
+#Read news from internet and send to DB
+30 7 * * 1 python /home/pi/Script/rss_writer.py >> /home/pi/Script/rss_writer.log
