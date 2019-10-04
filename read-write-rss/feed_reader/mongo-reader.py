@@ -30,7 +30,7 @@ send_message(test_url)
 
 def send_data_to_ai(documents):
      for content in documents:
-          r = requests.post('http://riohomecloud.ddns.net:5000/predict?msg={}'.format(content)) 
+          r = requests.post('http://riohomecloud.ddns.net:5000/predict?input={}'.format(content)) 
           return r
 
 def get_ducuments(url):
