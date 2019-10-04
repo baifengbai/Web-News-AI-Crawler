@@ -11,8 +11,8 @@ import telepot
 import os
 import json
 
-TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN'] #'826514544:AAH_yj9x0CD6auL-N49XGFRi7JqavhrJnaE'
-TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID'] #'-1001457839912'
+TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN'] 
+TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID'] 
 
 def send_message(test_url):
     params = {
