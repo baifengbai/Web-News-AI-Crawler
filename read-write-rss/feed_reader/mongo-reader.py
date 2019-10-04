@@ -26,8 +26,6 @@ def send_message(test_url):
     else:
         r.raise_for_status()
         
-send_message(test_url)
-
 def send_data_to_ai(documents):
      for content in documents:
           r = requests.post('http://riohomecloud.ddns.net:5000/predict?input={}'.format(content)) 
