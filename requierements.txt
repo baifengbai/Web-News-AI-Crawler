@@ -1,0 +1,7 @@
+feedparser
+pymongo
+pandas
+flask
+numpy
+tensorflow
+keras
