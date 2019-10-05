@@ -4,4 +4,6 @@ pandas
 flask
 numpy
 tensorflow
-keras
+keras==2.2.4
+h5py
+telepot
