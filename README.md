@@ -11,8 +11,8 @@ docker exec -it rpi3-mongodb3 mongo admin
 
 db.createUser(
   {
-    user: "rio",
-    pwd: "onslario89",
+    user: "<user>",
+    pwd: "<psw>",
     roles: [ { role: "readWrite", db: "rss_news" } ]
   }
 )
