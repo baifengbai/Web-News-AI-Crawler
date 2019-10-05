@@ -19,7 +19,7 @@ def send_message(test_url):
         'chat_id': TELEGRAM_CHAT_ID,
         'text': test_url
     }
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    url = "https://api.telegram.org/bot{}/sendMessage".format(TELEGRAM_BOT_TOKEN)
     r = requests.get(url, params=params)
     if r.status_code == 200:
         print(json.dumps(r.json(), indent=2))
@@ -28,7 +28,7 @@ def send_message(test_url):
         
 def send_data_to_ai(documents):
      for content in documents:
-          r = requests.post('http://riohomecloud.ddns.net:5000/predict?input={}'.format(content)) 
+          r = requests.post('http://localhost:5000/predict?input={}'.format(content)) 
           return r
 
 def get_ducuments(url):
@@ -55,16 +55,16 @@ contents=[]
 for url in lines:
     feed = feedparser.parse(url) 
     feed_name=feed['feed']['title']
-    mydocs = db[feed_name].find({'date': {'$lt': end, '$gt': start}})
+    mydocs = db[feed_name].find() #{'date': {'$lt': end, '$gt': start}}
     if re.match(r'^TechCrunch', feed_name): 
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[i]['content'][0]['value'], mydocs[i]['link'])
+            contents.append([mydocs[i]['content'][0]['value'], mydocs[i]['link']])
     else:
         for i in range(0, mydocs.count()):
-            contents.append(mydocs[i]['summary'], mydocs[i]['link']) 
+            contents.append([mydocs[i]['summary'], mydocs[i]['link']]) 
 
 for content in contents:
-    if send_data_to_ai(content[0])['predictions'][0] > 0.5):
+    if send_data_to_ai(content[0])['predictions'][0] > 0.5:
         #send_message(content[1]) 
         print("OK")
 
