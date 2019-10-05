@@ -27,4 +27,6 @@ db.auth("<user>", "<psw>")
 
 4. Put writer and reader scripts into /home/pi/Scripts/
 
-5. Start backend server (/backend/api-server.py)
+5. sudo apt-get install libatlas-base-dev
+
+6. Start backend server: nohup python3 /home/pi/Scripts/backend/api-server.py &
