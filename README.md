@@ -9,15 +9,22 @@ docker run -d --restart=unless-stopped --name rpi3-mongodb3 --restart unless-sto
 
 docker exec -it rpi3-mongodb3 mongo admin
 
-db.createUser({ user: "<user>", pwd: "<psw>", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] })
+db.createUser(
+  {
+    user: "rio",
+    pwd: "onslario89",
+    roles: [ { role: "readWrite", db: "rss_news" } ]
+  }
+)
 
 db.auth("<user>", "<psw>")
 
-use rss_news
 ```
 
 2. Install cronjobs
 
-3. Put writer and reader scripts into /home/pi/Scripts/
+3. pip3 install -r requierements.txt
 
-4. Start backend server (/backend/api-server.py)
+4. Put writer and reader scripts into /home/pi/Scripts/
+
+5. Start backend server (/backend/api-server.py)
