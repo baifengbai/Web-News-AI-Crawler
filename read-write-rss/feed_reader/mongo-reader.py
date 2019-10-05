@@ -65,6 +65,6 @@ for url in lines:
 
 for content in contents:
     if send_data_to_ai(content[0])['predictions'][0] > 0.5:
-        #send_message(content[1]) 
-        print("OK")
+        send_message(content[1]) 
+        
 
