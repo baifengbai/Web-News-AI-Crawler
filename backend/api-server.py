@@ -51,6 +51,7 @@ def predict():
     # if parameters are found, return a prediction
     if (params != None):
             
+            print(params['input'])
             data_to_predict=preprocess_data(params['input'])
             print(data_to_predict)
             model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
