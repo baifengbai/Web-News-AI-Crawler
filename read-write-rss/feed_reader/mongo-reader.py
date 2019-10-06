@@ -64,7 +64,8 @@ for url in lines:
             contents.append([mydocs[i]['summary'], mydocs[i]['link']]) 
 
 for content in contents:
-    if send_data_to_ai(content[0])['predictions'][0] > 0.5:
-        send_message(content[1]) 
+    print(content[0])
+    #if send_data_to_ai(content[0])['predictions'][0] > 0.5:
+        #send_message(content[1]) 
         
 
