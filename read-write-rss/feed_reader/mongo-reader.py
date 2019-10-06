@@ -26,10 +26,9 @@ def send_message(test_url):
     else:
         r.raise_for_status()
         
-def send_data_to_ai(documents):
-     for content in documents:
-          r = requests.post('http://localhost:5000/predict?input={}'.format(content)) 
-          return r
+def send_data_to_ai(content):
+        r = requests.post('http://localhost:5000/predict?input={}'.format(content)) 
+        return r.json()
 
 def get_ducuments(url):
      try: 
