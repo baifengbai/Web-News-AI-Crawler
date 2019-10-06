@@ -27,6 +27,6 @@ db.auth("<user>", "<psw>")
 
 4. Put writer and reader scripts into /home/pi/Scripts/
 
-5. sudo apt-get install libatlas-base-dev
+5. sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
 
 6. Start backend server: nohup python3 /home/pi/Scripts/backend/api-server.py &
