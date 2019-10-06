@@ -28,7 +28,7 @@ def send_message(test_url):
         
 def send_data_to_ai(content):
         r = requests.post('http://localhost:5000/predict?input={}'.format(content)) 
-        return r.json()
+        return r.json()['predictions'][0]
 
 def get_ducuments(url):
      try: 
@@ -64,7 +64,7 @@ for url in lines:
 
 for content in contents:
     print(content[0])
-    #if send_data_to_ai(content[0])['predictions'][0] > 0.5:
-        #send_message(content[1]) 
+    if send_data_to_ai(content[0]) > 0.5:
+        send_message(content[1]) 
         
 

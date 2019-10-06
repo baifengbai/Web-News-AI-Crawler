@@ -6,6 +6,8 @@ import pandas as pd
 import tensorflow as tf
 import keras
 from keras.models import load_model
+from keras import backend as K
+
 
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
@@ -51,9 +53,7 @@ def predict():
     # if parameters are found, return a prediction
     if (params != None):
             
-            print(params['input'])
             data_to_predict=preprocess_data(params['input'])
-            print(data_to_predict)
             model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
             results = model.predict(data_to_predict)
             data["predictions"] = []
@@ -63,6 +63,7 @@ def predict():
                 data["predictions"].append(r)
             # indicate that the request was a success
             data["success"] = True
+            K.clear_session()
 
     # return a response in json format 
     return flask.jsonify(data)    
