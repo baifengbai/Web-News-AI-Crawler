@@ -1,0 +1,2 @@
+#Read news from internet and send to AI
+30 7 * * 1 python /home/pi/Script/stateless_news_ai.py >> /home/pi/Script/stateless_news_ai.log
