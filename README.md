@@ -3,7 +3,7 @@ This is a web crawler which uses AI to filter most interesting news from the int
 
 ### Installation
 
-0. requiered: Python3
+0. requiered: Python3 and Docker
 
 1. Install MondgoDB and create database:
 
