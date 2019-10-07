@@ -33,4 +33,9 @@ sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
 
 4. Put writer and reader scripts into /home/pi/Scripts/
 
-5. Start backend server: nohup python3 /home/pi/Scripts/backend/api-server.py &
+5. Start backend server: 
+
+```console
+nohup python3 /home/pi/Scripts/backend/api-server.py &
+```
+
