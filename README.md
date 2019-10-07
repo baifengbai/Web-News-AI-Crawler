@@ -2,6 +2,9 @@
 This is a web crawler which uses AI to filter most interesting news from the internet 
 
 ### Installation
+
+0. requiered: Python3
+
 1. Install MondgoDB and create database:
 
 ```console
