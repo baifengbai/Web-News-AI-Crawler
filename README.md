@@ -21,12 +21,16 @@ db.auth("<user>", "<psw>")
 
 ```
 
-2. Install cronjobs
+2. Install cronjobs 
 
-3. pip3 install -r requierements.txt
+3. Install dependencies:
+
+```console
+pip3 install -r requierements.txt
+
+sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
+```
 
 4. Put writer and reader scripts into /home/pi/Scripts/
 
-5. sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
-
-6. Start backend server: nohup python3 /home/pi/Scripts/backend/api-server.py &
+5. Start backend server: nohup python3 /home/pi/Scripts/backend/api-server.py &
