@@ -54,7 +54,7 @@ contents=[]
 for url in lines:
     feed = feedparser.parse(url) 
     feed_name=feed['feed']['title']
-    mydocs = db[feed_name].find() #{'date': {'$lt': end, '$gt': start}}
+    mydocs = db[feed_name].find({"date": {"$gt": datetime.datetime.today()}})     
     if re.match(r'^TechCrunch', feed_name): 
         for i in range(0, mydocs.count()):
             contents.append([mydocs[i]['content'][0]['value'], mydocs[i]['link']])
