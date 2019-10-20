@@ -1,2 +1,2 @@
 #Read news from DB and send to AI model
-0 8 * * 1 python /home/pi/Script/mongo-reader.py >> /home/pi/Script/rss_reader.log
+0 8 * * 1 python3 /home/pi/Script/mongo-reader.py >> /home/pi/Script/rss_reader.log
