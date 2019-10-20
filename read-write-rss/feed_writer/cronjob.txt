@@ -1,2 +1,2 @@
 #Read news from internet and send to DB
-30 7 * * 1 python /home/pi/Script/rss_writer.py >> /home/pi/Script/rss_writer.log
+30 7 * * 1 python3 /home/pi/Script/rss_writer.py >> /home/pi/Script/rss_writer.log
