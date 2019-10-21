@@ -38,7 +38,12 @@ sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
 
 5. Start backend server: 
 
+add the following line to: /etc/rc.local
+
 ```console
 nohup python3 /home/pi/Scripts/backend/api-server.py &
 ```
 
+6. Add the Telegram TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to ~/.bashrc
+
+7. Reboot
