@@ -45,6 +45,6 @@ rm /home/pi/volume/mongodb/db/mongod.lock
 nohup python3 /home/pi/Scripts/backend/api-server.py &
 ```
 
-6. Add the Telegram TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to ~/.bashrc
+6. Add the Telegram TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to ~/.profile
 
 7. Reboot
