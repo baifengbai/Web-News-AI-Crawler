@@ -41,6 +41,7 @@ sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
 add the following line to: /etc/rc.local (be sure to leave the line exit 0 at the end)
 
 ```console
+rm /home/pi/volume/mongodb/db/mongod.lock
 nohup python3 /home/pi/Scripts/backend/api-server.py &
 ```
 
