@@ -24,7 +24,7 @@ db.auth("<user>", "<psw>")
 
 ```
 
-2. Install cronjobs 
+2. Install cronjobs with sudo
 
 3. Install dependencies:
 
@@ -38,7 +38,13 @@ sudo apt-get install libatlas-base-dev libhdf5-dev python-h5py
 
 5. Start backend server: 
 
+add the following line to: /etc/rc.local (be sure to leave the line exit 0 at the end)
+
 ```console
+rm /home/pi/volume/mongodb/db/mongod.lock
 nohup python3 /home/pi/Scripts/backend/api-server.py &
 ```
 
+6. Add the Telegram TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to ~/.profile
+
+7. Reboot

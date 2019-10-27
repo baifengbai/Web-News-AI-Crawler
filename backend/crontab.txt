@@ -1,0 +1,5 @@
+#AI Flask API Server
+@reboot nohup python3 /home/pi/Scripts/backend/api-server.py &
+
+#restart mongoDB
+@reboot rm /home/pi/volume/mongodb/db/mongod.lock && docker restart andresvidal/rpi3-mongodb3
