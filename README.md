@@ -24,7 +24,7 @@ db.auth("<user>", "<psw>")
 
 ```
 
-2. Install cronjobs 
+2. Install cronjobs with sudo
 
 3. Install dependencies:
 
