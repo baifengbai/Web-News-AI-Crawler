@@ -7,3 +7,4 @@ http://feeds.dzone.com/cloud
 http://feeds.feedburner.com/entrepreneur/latest
 https://hackernoon.com/feed
 https://www.wired.com/feed/rss
+https://www.hdblog.it/feed/

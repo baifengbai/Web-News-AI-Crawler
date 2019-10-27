@@ -58,6 +58,7 @@ for url in lines:
     print("found feed: ", feed_name)
     mydocs = db[feed_name].find().limit(10) #{"date": {"$gt": datetime.datetime.today()}}
     print("found: ",  mydocs.count(with_limit_and_skip=True), " feed")
+
     if re.match(r'^TechCrunch', feed_name): 
         for i in range(0, mydocs.count(with_limit_and_skip=True)):
             contents.append([mydocs[i]['content'][0]['value'], mydocs[i]['link']])
