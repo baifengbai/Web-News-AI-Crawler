@@ -24,7 +24,7 @@ RUN mkdir $HOME/scripts
 
 COPY ./* /home/root/scripts/
 
-RUN pip install --upgrade && pip install -r /home/root/scripts/requierements.txt
+RUN pip install --upgrade pip && pip install -r /home/root/scripts/requierements.txt
 
 EXPOSE 5000/tcp
 
