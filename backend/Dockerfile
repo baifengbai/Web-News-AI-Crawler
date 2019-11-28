@@ -21,6 +21,8 @@ RUN apt-get update \
 
 RUN mkdir $HOME/scripts
 
+RUN cp ./* $HOME/scripts
+
 RUN pip install --upgrade pip 
 
 RUN pip install feedparser pymongo pandas flask numpy tensorflow keras==2.2.4 h5py 
