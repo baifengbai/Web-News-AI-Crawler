@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:16.04
+FROM arm32v7/python:latest
 
 MAINTAINER Rio<onslaught89@gmail.com>
 
@@ -12,7 +12,6 @@ RUN apt-get update \
     libpq-dev \
     make \
     python-pip \
-    python3 \
     python3-dev \
     ssh \
     libatlas-base-dev \
@@ -22,9 +21,9 @@ RUN apt-get update \
 
 RUN mkdir $HOME/scripts
 
-COPY ./* /home/root/scripts/
+RUN pip install --upgrade pip 
 
-RUN pip install --upgrade pip && pip install -r /home/root/scripts/requierements.txt
+RUN pip install feedparser pymongo pandas flask numpy tensorflow keras==2.2.4 h5py 
 
 EXPOSE 5000/tcp
 
