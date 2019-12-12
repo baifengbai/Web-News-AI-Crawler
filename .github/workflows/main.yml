@@ -38,5 +38,5 @@ jobs:
             --tag rio05docker/ai_news_server:rpi3_develop_${GITHUB_SHA} \
             --platform linux/arm/v7 \
             --output "type=image,push=true" \
-            --file ./tflite/Dockerfile \
-            ./tflite
+            --file ./stateless/Dockerfile \
+            ./stateless
