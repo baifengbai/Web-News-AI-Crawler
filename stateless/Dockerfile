@@ -1,4 +1,4 @@
-FROM derekmerck/keras-tfkeras-tf:py3-tf190-k222-arm32v7
+FROM derekmerck/keras-tf:py3-tf190-k222-arm32v7
 
 RUN pip3 install telepot 
 RUN pip3 install requests
