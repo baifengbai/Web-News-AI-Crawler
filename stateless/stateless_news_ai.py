@@ -1,18 +1,18 @@
 #reader
 #Thanks to: https://alvinalexander.com/python/python-script-read-rss-feeds-database
+import sys
+sys.path.insert(1, '/opt/conda/lib/python3.6/site-packages')
 import feedparser
 import time
-from subprocess import check_output
-import pymongo
-import sys
+#from subprocess import check_output
 import telepot
 import requests
 import json
 import re
 import os
 import io
-import pandas as pd 
-import tensorflow as tf
+#import pandas as pd 
+#import tensorflow as tf
 import keras
 from keras.models import load_model
 from keras import backend as K
@@ -20,10 +20,11 @@ import numpy as np
 
 model = None
 
-test_url='http://tracking.feedpress.it/link/17798/12832957'
+#TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+#TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+TELEGRAM_BOT_TOKEN = '826514544:AAH_yj9x0CD6auL-N49XGFRi7JqavhrJnaE'
+TELEGRAM_CHAT_ID='-1001457839912'
 
 def filter_data(string):
     '''
@@ -62,42 +63,56 @@ def send_message(test_url):
     else:
         r.raise_for_status()
 
-def send_data_to_ai(content):
+def send_data_to_ai(model, content):
+    print('\n') 
+    print("Content: ", content)
     data = {"success": False, "predictions": []}
-    data_to_predict=preprocess_data(content['input'])
-    model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
-    K.clear_session()
+    data_to_predict=preprocess_data(content)
+    print('\n') 
+    print("Predicting..")
+    model._make_predict_function()
     results = model.predict( np.array( [data_to_predict,] ))
+    print('\n') 
+    print("Result: ", results)
+    print('\n') 
     data["predictions"] = []
-
     for prob in results:
         r = float(prob)
         data["predictions"].append(r)
     # indicate that the request was a success
     data["success"] = True
-    K.clear_session() 
-    print(r.json()['predictions'])
-    return r.json()['predictions'][0]
+    #K.clear_session() 
+    return data['predictions'][0]
 
 # Open the rss file with read only permit and read line by line
 f = open('feed_list.txt', "r")
 lines = f.readlines()
+
+print('\n') 
+print("Loading model..")
+#K.clear_session()
+model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
+#K.clear_session()
+
 for url in lines:
     try: 
+        print('\n') 
+        print("Reading: ", url)
         feed = feedparser.parse(url)
         feed_name=feed['feed']['title']
+        print('\n') 
         print("##########Reading feed: ", feed_name)
         print('\n') 
         for post in feed.entries:
-            print(post['title'])
+            print("Title: ", post['title'])
             if re.match(r'^TechCrunch', post['title']): #TODO add more feeds to parse
                 if send_data_to_ai(post['content'][0]['value']) > 0.5:
                     send_message(post['link']) 
                 print('\n') 
             else:
-                if send_data_to_ai(post['summary']) > 0.5:
+                if send_data_to_ai(model, post['summary']) > 0.5:
                     send_message(post['link'])
-                print('\n') 
+                print('\n')
     except Exception as e:
         print("Error while reading feed", feed_name)
         print("Ecxception: ", e)
