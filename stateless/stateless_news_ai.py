@@ -63,8 +63,6 @@ def send_message(test_url):
     else:
         r.raise_for_status()
 
-
-
 def send_data_to_ai(model, content):
     print('\n') 
     print("Content: ", content)
@@ -92,6 +90,10 @@ lines = f.readlines()
 print('\n') 
 print("Loading model..")
 model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
+
+#Test
+feed = feedparser.parse('http://techcrunch.com/feed/')
+feed_name=feed['feed']['title']
 
 for url in lines:
     try: 
