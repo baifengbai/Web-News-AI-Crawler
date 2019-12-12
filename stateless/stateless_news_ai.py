@@ -9,12 +9,45 @@ import telepot
 import requests
 import json
 import re
+import io
+import pandas as pd
+import tensorflow as tf
+import keras
+from keras.models import load_model
+from keras import backend as K
+import nunpy as np
+
+model = None
 
 test_url='http://tracking.feedpress.it/link/17798/12832957'
 
 TELEGRAM_BOT_TOKEN='826514544:AAH_yj9x0CD6auL-N49XGFRi7JqavhrJnaE'
 TELEGRAM_CHAT_ID='-1001457839912'
 
+def filter_data(string):
+    '''
+    Removes usless characters
+    '''
+    filtered = string.replace('<p class="p1"><span class="s1">',' ')
+    filtered = filtered.replace('<p ',' ')
+    filtered = filtered.replace('<dev>',' ')
+    return filtered
+
+def preprocess_data(stored_contents):
+    from keras.preprocessing.text import text_to_word_sequence, one_hot
+    from keras.preprocessing.sequence import pad_sequences
+
+    #see: https://machinelearningmastery.com/prepare-text-data-deep-learning-keras/
+    
+    # tokenize the document
+    word_sequence=text_to_word_sequence(filter_data(stored_contents))
+    words = set(word_sequence) #set() "groups by" the characters filtering duplicaded ones
+    vocab_size=len(words) #getting vocabulary size, this will be the input 
+    tokenized_array=one_hot(stored_contents, round(vocab_size)) #one hot encoding input data
+
+    #data_to_predict = pad_sequences(tokenized_array, maxlen = 9000)
+    #return data_to_predict
+    return tokenized_array
 
 def send_message(test_url):
     params = {
@@ -30,9 +63,21 @@ def send_message(test_url):
 
 import requests
 def send_data_to_ai(content):
-      r = requests.get('http://localhost:5000/predict?input={}'.format(content)) 
-      print(r.json()['predictions'])
-      return r.json()['predictions'][0]
+    data = {"success": False, "predictions": []}
+    data_to_predict=preprocess_data(content['input'])
+    model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
+    K.clear_session()
+    results = model.predict( np.array( [data_to_predict,] ))
+    data["predictions"] = []
+
+    for prob in results:
+        r = float(prob)
+        data["predictions"].append(r)
+    # indicate that the request was a success
+    data["success"] = True
+    K.clear_session() 
+    print(r.json()['predictions'])
+    return r.json()['predictions'][0]
 
 # Open the rss file with read only permit and read line by line
 f = open('feed_list.txt', "r")

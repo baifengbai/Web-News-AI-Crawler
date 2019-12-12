@@ -4,6 +4,8 @@ RUN pip3 install telepot
 RUN pip3 install requests
 RUN pip3 install feedparser
 RUN pip3 install subprocess
+RUN pip3 install pandas
+RUN pip3 install keras==2.2.4
 
 RUN mkdir /home/scripts
 RUN mkdir /home/scripts/models
