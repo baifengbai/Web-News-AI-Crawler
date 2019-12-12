@@ -55,6 +55,7 @@ def predict():
             
             data_to_predict=preprocess_data(params['input'])
             model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
+            K.clear_session()
             results = model.predict( np.array( [data_to_predict,] ))
             data["predictions"] = []
 

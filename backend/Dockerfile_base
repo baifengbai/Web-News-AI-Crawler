@@ -1,0 +1,32 @@
+FROM arm32v7/ubuntu:16.04
+
+MAINTAINER Rio<onslaught89@gmail.com>
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y \
+    build-essential \
+    ca-certificates \
+    gcc \
+    git \
+    libpq-dev \
+    make \
+    python3-pip \
+    python3-dev \
+    ssh \
+    libatlas-base-dev \
+    libhdf5-dev python-h5py \
+    && apt-get autoremove \
+    && apt-get clean
+
+RUN mkdir $HOME/scripts
+
+COPY models/ $HOME/scripts
+
+RUN pip3 install --upgrade pip 
+
+RUN pip3 install feedparser pymongo pandas numpy tensorflow keras==2.2.4 h5py flask
+
+EXPOSE 5000/tcp
+
+CMD [ "python3", "/home/root/scripts/backend/api-server.py" ]
