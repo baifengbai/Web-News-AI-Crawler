@@ -1,0 +1,42 @@
+name: ai_news_server
+
+on:
+  push: # Trigger when push on develop branch
+   branches:
+      - develop
+        
+jobs:
+  buildx:
+    name: Build and push
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v1
+        with:
+          ref: develop
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1.0.4
+        with:
+          version: latest
+      
+      -
+        name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+        
+      - 
+        name: Login to GitHub Docker Registry
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      
+      #Build&Push 
+      -
+        name: Build and push Tensorflow Lite container #see: https://github.com/marketplace/actions/docker-buildx
+        run: |
+          docker buildx build \
+            --tag rio05docker/ai_news_server:rpi3_develop_${GITHUB_SHA} \
+            --platform linux/arm/v7 \
+            --output "type=image,push=true" \
+            --file ./tflite/Dockerfile \
+            ./tflite
