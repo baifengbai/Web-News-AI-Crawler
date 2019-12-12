@@ -9,6 +9,7 @@ import telepot
 import requests
 import json
 import re
+import os
 import io
 import pandas as pd
 import tensorflow as tf
@@ -21,8 +22,8 @@ model = None
 
 test_url='http://tracking.feedpress.it/link/17798/12832957'
 
-TELEGRAM_BOT_TOKEN='826514544:AAH_yj9x0CD6auL-N49XGFRi7JqavhrJnaE'
-TELEGRAM_CHAT_ID='-1001457839912'
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 def filter_data(string):
     '''
