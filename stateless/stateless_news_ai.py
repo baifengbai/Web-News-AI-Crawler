@@ -11,12 +11,12 @@ import json
 import re
 import os
 import io
-import pandas as pd
+import pandas as pd 
 import tensorflow as tf
 import keras
 from keras.models import load_model
 from keras import backend as K
-import nunpy as np
+import numpy as np
 
 model = None
 
@@ -62,7 +62,6 @@ def send_message(test_url):
     else:
         r.raise_for_status()
 
-import requests
 def send_data_to_ai(content):
     data = {"success": False, "predictions": []}
     data_to_predict=preprocess_data(content['input'])
