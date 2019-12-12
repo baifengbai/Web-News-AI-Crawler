@@ -63,6 +63,8 @@ def send_message(test_url):
     else:
         r.raise_for_status()
 
+
+
 def send_data_to_ai(model, content):
     print('\n') 
     print("Content: ", content)
@@ -81,7 +83,6 @@ def send_data_to_ai(model, content):
         data["predictions"].append(r)
     # indicate that the request was a success
     data["success"] = True
-    #K.clear_session() 
     return data['predictions'][0]
 
 # Open the rss file with read only permit and read line by line
@@ -90,9 +91,7 @@ lines = f.readlines()
 
 print('\n') 
 print("Loading model..")
-#K.clear_session()
 model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
-#K.clear_session()
 
 for url in lines:
     try: 
@@ -106,11 +105,11 @@ for url in lines:
         for post in feed.entries:
             print("Title: ", post['title'])
             if re.match(r'^TechCrunch', post['title']): #TODO add more feeds to parse
-                if send_data_to_ai(post['content'][0]['value']) > 0.5:
+                if send_data_to_ai(post['content'][0]['value']) > 0.7:
                     send_message(post['link']) 
                 print('\n') 
             else:
-                if send_data_to_ai(model, post['summary']) > 0.5:
+                if send_data_to_ai(model, post['summary']) > 0.7:
                     send_message(post['link'])
                 print('\n')
     except Exception as e:
