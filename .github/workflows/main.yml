@@ -32,7 +32,7 @@ jobs:
       
       #Build&Push 
       -
-        name: Build and push Tensorflow Lite container #see: https://github.com/marketplace/actions/docker-buildx
+        name: Build and push Keras container #see: https://github.com/marketplace/actions/docker-buildx
         run: |
           docker buildx build \
             --tag rio05docker/ai_news_server:rpi3_develop_${GITHUB_SHA} \
