@@ -20,11 +20,8 @@ import numpy as np
 
 model = None
 
-#TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
-#TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
-
-TELEGRAM_BOT_TOKEN = '826514544:AAH_yj9x0CD6auL-N49XGFRi7JqavhrJnaE'
-TELEGRAM_CHAT_ID='-1001457839912'
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 def filter_data(string):
     '''
