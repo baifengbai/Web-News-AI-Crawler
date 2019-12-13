@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: ai-news
+spec:
+  schedule: "0 9 * * 1"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: ai-news
+            image: rio05docker/ai_news_server:rpi3_develop_07a96d304c5b08c16b025d21ba51c60b53d1a91b
+            resources:
+            limits:
+                memory: "1Gi"
+                cpu: "1"
+            requests:
+                cpu: "100m"
+                memory: "30Mi"
+            args:
+            - python3
+            - stateless_news_ai.py
+          restartPolicy: OnFailure
