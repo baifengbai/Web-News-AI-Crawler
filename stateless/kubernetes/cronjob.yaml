@@ -18,6 +18,11 @@ spec:
             requests:
                 cpu: "100m"
                 memory: "30Mi"
+            env:
+            - name: TELEGRAM_BOT_TOKEN
+              value: ''
+            - name: TELEGRAM_CHAT_ID
+              value: ''
             args:
             - python3
             - stateless_news_ai.py
