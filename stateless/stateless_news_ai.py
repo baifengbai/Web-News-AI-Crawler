@@ -113,4 +113,4 @@ for url in lines:
                 print('\n')
     except Exception as e:
         print("Error while reading feed", feed_name)
-        print("Ecxception: ", e)
+        print("Exception: ", e)
