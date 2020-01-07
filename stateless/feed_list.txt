@@ -1,4 +1,3 @@
-http://techcrunch.com/feed/
 http://feeds.dzone.com/devops
 http://feeds.dzone.com/iot
 http://feeds.dzone.com/microservices
@@ -8,3 +7,4 @@ http://feeds.feedburner.com/entrepreneur/latest
 https://hackernoon.com/feed
 https://www.wired.com/feed/rss
 https://www.hdblog.it/feed/
+http://techcrunch.com/feed/

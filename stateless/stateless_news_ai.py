@@ -89,8 +89,8 @@ print("Loading model..")
 model=load_model('models/rss_model.h5') #requieres keras 2.2.4!!!
 
 #Test
-feed = feedparser.parse('http://techcrunch.com/feed/')
-feed_name=feed['feed']['title']
+#feed = feedparser.parse('http://techcrunch.com/feed/')
+#feed_name=feed['feed']['title']
 
 for url in lines:
     try: 
@@ -113,4 +113,4 @@ for url in lines:
                 print('\n')
     except Exception as e:
         print("Error while reading feed", feed_name)
-        print("Ecxception: ", e)
+        print("Exception: ", e)
