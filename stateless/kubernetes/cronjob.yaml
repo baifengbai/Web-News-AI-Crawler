@@ -19,10 +19,16 @@ spec:
                 cpu: "100m"
                 memory: "30Mi"
             env:
-            - name: TELEGRAM_BOT_TOKEN
-              value: ''
-            - name: TELEGRAM_CHAT_ID
-              value: ''
+              - name: TELEGRAM_BOT_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: telegram_credentials
+                    key: TELEGRAM_BOT_TOKEN
+              - name: SECRET_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: telegram_credentials
+                    key: TELEGRAM_CHAT_ID
             args:
             - python3
             - stateless_news_ai.py
